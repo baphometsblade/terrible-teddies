@@ -1,0 +1,41 @@
+classDiagram
+    class Main {
+        +Start() void
+        +Update() void
+    }
+    class Card {
+        -string cardName
+        -int attackPoints
+        -int defensePoints
+        -string effectDescription
+        +PlayCard(Player player) void
+    }
+    class Player {
+        -List<Card> hand
+        -int healthPoints
+        +DrawCard() void
+        +PlayCard(Card card) void
+        +EndTurn() void
+    }
+    class GameManager {
+        -Player player1
+        -Player player2
+        -List<Card> deck
+        -bool isPlayer1Turn
+        +StartGame() void
+        +EndGame() void
+        +NextTurn() void
+    }
+    class UIManager {
+        +UpdateHealthDisplay(int playerHealth) void
+        +UpdateHandDisplay(List<Card> hand) void
+        +ShowEndGameMessage(string message) void
+    }
+    class AIPlayer {
+        +DecidePlay(List<Card> hand) Card
+    }
+    Main --> GameManager
+    GameManager --> Player
+    Player --> Card
+    GameManager --> UIManager
+    Player --> AIPlayer

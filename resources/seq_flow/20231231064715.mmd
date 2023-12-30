@@ -1,0 +1,25 @@
+sequenceDiagram
+    participant M as Main
+    participant GM as GameManager
+    participant P1 as Player
+    participant P2 as AIPlayer
+    participant C as Card
+    participant UI as UIManager
+    M->>GM: StartGame()
+    GM->>P1: DrawCard()
+    GM->>P2: DrawCard()
+    loop Game Loop
+        alt is Player 1's Turn
+            P1->>C: PlayCard(P1)
+            C-->>GM: UpdateGameState()
+        else is Player 2's Turn
+            P2->>C: DecidePlay(P2.hand)
+            C-->>GM: UpdateGameState()
+        end
+        GM->>UI: UpdateHealthDisplay(P1.healthPoints)
+        GM->>UI: UpdateHandDisplay(P1.hand)
+        GM->>UI: UpdateHealthDisplay(P2.healthPoints)
+        GM->>UI: UpdateHandDisplay(P2.hand)
+        GM->>GM: NextTurn()
+    end
+    GM->>UI: ShowEndGameMessage("Player 1 wins!")
